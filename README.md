@@ -1,36 +1,51 @@
-# 💰 Sistema Bancário em Python UPDATE!!!
+# 💰 Sistema Bancário em Python com POO
 
-Este projeto é uma simulação de um sistema bancário em console, desenvolvido em Python. Ele foi criado para aplicar conceitos de programação estruturada, como funções e o uso de diferentes tipos de argumentos (`positional-only` e `keyword-only`), tornando o código modular, organizado e de fácil manutenção.
+Este projeto é uma simulação aprimorada de um sistema bancário, operado via console e desenvolvido inteiramente em Python. A principal evolução desta versão é a refatoração do código para uma arquitetura robusta baseada em **Programação Orientada a Objetos (POO)**.
 
----
+Essa mudança permite modelar entidades do mundo real (como Clientes, Contas e Transações) de forma intuitiva e coesa, resultando em um código mais limpo, modular, reutilizável e escalável.
 
-### 🧠 Funcionalidades e Operações
+## ✨ Funcionalidades Principais
 
 | Categoria | Funcionalidade | Descrição |
 | :--- | :--- | :--- |
-| **Operações Financeiras** | Depósito | Permite adicionar um valor ao saldo da conta, registrando a operação no extrato. |
-| | Saque | Realiza um saque, com um limite de até 3 saques diários e um valor máximo de R$ 500,00 por saque. O sistema verifica o saldo disponível antes de aprovar a transação. |
-| | Extrato | Exibe um resumo de todas as movimentações (depósitos e saques) e o saldo atual da conta. |
-| **Gerenciamento de Clientes e Contas** | Novo Usuário | Cadastra um novo cliente com informações como nome, CPF, data de nascimento e endereço. O sistema valida se o CPF já existe. |
-| | Buscar Usuário | Permite pesquisar e exibir os dados de um cliente existente a partir de seu CPF. |
-| | Nova Conta | Cria uma nova conta corrente e a vincula a um usuário já cadastrado. As contas são sequenciais e a agência é fixa. |
-| | Listar Contas | Exibe todas as contas criadas, mostrando a agência, o número da conta e o nome do titular. |
+| **Operações Financeiras** | **Depósito** | Permite adicionar um valor ao saldo da conta, registrando a operação no histórico. |
+| | **Saque** | Realiza um saque com limite de 3 operações diárias e um valor máximo de R$ 500,00 por transação. O sistema valida o saldo antes de aprovar. |
+| | **Transferência** | Permite transferir valores de uma conta para outra, validando o saldo disponível na conta de origem e registrando a transação em ambas. |
+| | **Extrato** | Exibe um resumo de todas as movimentações (depósitos, saques e transferências) e o saldo atual da conta. |
+| **Gerenciamento** | **Novo Usuário** | Cadastra um novo cliente (Pessoa Física) com nome, CPF, data de nascimento e endereço, validando se o CPF já existe. |
+| | **Nova Conta** | Cria uma nova conta corrente e a vincula a um usuário já cadastrado. O sistema impede que um mesmo cliente crie mais de uma conta. |
+| | **Listar Contas** | Exibe todas as contas criadas, mostrando a agência, o número da conta e o nome do titular. |
 
----
+## 🏛️ Arquitetura e Conceitos de POO Aplicados
 
-### 📋 Regras de Negócio e Melhorias
+O projeto foi estruturado para aplicar os pilares fundamentais da Programação Orientada a Objetos:
 
-O sistema agora gerencia **múltiplos usuários e contas de forma independente**, indo além da limitação de um único cliente.
+* ### Herança
+    A classe `ContaCorrente` herda de `Conta`, e `PessoaFisica` herda de `Cliente`. Isso permite o reaproveitamento de código e a criação de uma hierarquia lógica entre as classes.
 
-* **Modularidade:** O código foi refatorado para utilizar funções com diferentes tipos de argumentos, o que melhora a legibilidade e a estrutura do projeto.
-* **Validação de Dados:** As entradas de CPF são limpas automaticamente, removendo caracteres não numéricos, o que garante a consistência no armazenamento e na busca de dados.
-* **Loop de Menu:** O menu principal opera em um loop contínuo, permitindo ao usuário realizar várias operações até que a opção de sair seja selecionada.
+* ### Encapsulamento
+    Atributos como `_saldo` e `_numero` são protegidos. O acesso a eles é controlado por meio de `properties` (`@property`), garantindo que o estado dos objetos seja consistente e seguro.
 
----
+* ### Polimorfismo
+    O método `sacar()` é um exemplo claro: ele possui uma implementação base na classe `Conta` e é sobrescrito na classe `ContaCorrente` para adicionar regras de negócio específicas (validação de limite e número de saques).
 
-### 🖥️ Como Executar
+* ### Abstração
+    A classe `Transacao` é uma Classe Base Abstrata (ABC) que define um "contrato" para todas as transações do sistema (`Saque`, `Deposito`, `Transferencia`), forçando-as a implementar os métodos `valor` e `registrar`.
 
-Certifique-se de ter o **Python 3** instalado em sua máquina. Para rodar o sistema, basta executar o arquivo `main.py` (ou o nome do seu arquivo principal) no terminal.
+## 🚀 Como Executar
 
-```bash
-python main.py
+1.  Certifique-se de ter o **Python 3** instalado em sua máquina.
+2.  Clone este repositório ou baixe os arquivos do projeto.
+3.  Abra o terminal na pasta do projeto e execute o arquivo principal:
+    ```bash
+    python nome_do_seu_arquivo.py
+    ```
+4.  Siga as instruções apresentadas no menu do console para interagir com o sistema.
+
+## 🔧 Tecnologias Utilizadas
+
+* **Python 3**
+* **Biblioteca Padrão do Python:**
+    * `datetime` para registrar a data e hora das transações.
+    * `abc` para a criação de classes abstratas.
+    * `textwrap` para formatação do menu de texto.
